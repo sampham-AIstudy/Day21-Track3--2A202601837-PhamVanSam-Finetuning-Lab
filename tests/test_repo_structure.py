@@ -71,9 +71,13 @@ def test_generated_notebooks_carry_the_current_bootstrap():
 # --- F-20: one source of truth for dependency pins ---------------------------
 def test_bootstraps_install_from_requirements_not_a_copied_list():
     run_all = json.loads((ROOT / "colab" / "Lab21_RUN_ALL.ipynb").read_text(encoding="utf-8"))
+    setup_cell = next(
+        ("".join(c["source"]) for c in run_all["cells"] if "Setup" in "".join(c.get("source", []))),
+        "".join(run_all["cells"][1]["source"]),
+    )
     sources = {
         "build_colab.BOOTSTRAP": _bootstrap(),
-        "Lab21_RUN_ALL cell 1": "".join(run_all["cells"][1]["source"]),
+        "Lab21_RUN_ALL setup cell": setup_cell,
     }
     for name, src in sources.items():
         assert "requirements.txt" in src, f"{name} does not install from requirements.txt"
