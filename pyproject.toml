@@ -7,7 +7,7 @@ requires-python = ">=3.10,<3.15"   # unsloth caps at <3.15; transformers 5 needs
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src", "tests"]
-addopts = "-q"
+addopts = "-q --basetemp=.pytest_temp"
 
 [tool.jupytext]
 formats = "py:percent"

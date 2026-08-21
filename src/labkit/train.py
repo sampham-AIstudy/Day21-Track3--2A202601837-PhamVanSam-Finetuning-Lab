@@ -109,7 +109,7 @@ def sft_config_kwargs(
         report_to="none",
         seed=seed,
         packing=False,       # we supply pre-tokenized labels -- see the note below
-        loss_type="chunked_nll",                  # TRL >= 1.7 default; big VRAM saving
+        loss_type="nll",                          # standard nll; avoids TRL patch error on Python 3.12
         gradient_checkpointing=True,
     )
     # `warmup_ratio` does not exist any more. transformers v5 / TRL 1.10 expose only
